@@ -10,7 +10,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class HomeController {
     @GetMapping("/")
     public Person home(HttpServletResponse response) {
-        response.addCookie(new Cookie("test", "test"));
+        Cookie cookie = new Cookie("test", "carles");
+        cookie.setDomain(".azurewebsites.net");
+        response.addCookie(cookie);
         return new Person("John", "Doe");
     }    
 }
