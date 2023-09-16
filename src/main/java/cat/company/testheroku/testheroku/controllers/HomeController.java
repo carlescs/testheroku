@@ -11,7 +11,7 @@ public class HomeController {
     @GetMapping("/")
     public Person home(HttpServletResponse response) {
         Cookie cookie = new Cookie("test", "carles");
-        cookie.setDomain("azurewebsites.net");
+        cookie.setDomain("company.cat");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
