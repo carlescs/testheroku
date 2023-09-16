@@ -12,6 +12,8 @@ public class HomeController {
     public Person home(HttpServletResponse response) {
         Cookie cookie = new Cookie("test", "carles");
         cookie.setDomain("azurewebsites.net");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return new Person("John", "Doe");
     }    
