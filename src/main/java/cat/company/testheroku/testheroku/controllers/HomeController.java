@@ -16,6 +16,7 @@ public class HomeController {
     public Person home(HttpServletResponse response) {
         Cookie cookie = new Cookie("test", "carles");
         cookie.setDomain("company.cat");
+        cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
@@ -27,6 +28,7 @@ public class HomeController {
     public Cookie setFromFrontend(@RequestBody NewCookie newCookie, HttpServletResponse response) {
         Cookie cookie = new Cookie(newCookie.getName(), newCookie.getValue());
         cookie.setDomain("company.cat");
+        cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
