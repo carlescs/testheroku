@@ -24,7 +24,7 @@ public class HomeController {
     }
 
     @PostMapping("/set-cookie")
-    @CrossOrigin(allowCredentials = "true")
+    @CrossOrigin(origins = {"https://testfront.company.cat","http://localhost:64860"}, allowCredentials = "true")
     public Cookie setFromFrontend(@RequestBody NewCookie newCookie, HttpServletResponse response) {
         Cookie cookie = new Cookie(newCookie.getName(), newCookie.getValue());
         cookie.setDomain("company.cat");
