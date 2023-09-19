@@ -25,12 +25,14 @@ public class HomeController {
 
     @PostMapping("/set-cookie")
     @CrossOrigin(origins = {"https://testfront.company.cat","http://localhost:64860"}, allowCredentials = "true")
-    public Cookie setFromFrontend(@RequestBody NewCookie newCookie, HttpServletResponse response) {
+    public Cookie setFromFrontend(@RequestBody NewCookie newCookie, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(newCookie.getName(), newCookie.getValue());
         cookie.setDomain("company.cat");
         cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
+        if(!request.getRemoteHost().endsWith("company.cat"))
+            cookie.setAttribute("SameSite", "None");
         response.addCookie(cookie);
         return cookie;
     }
