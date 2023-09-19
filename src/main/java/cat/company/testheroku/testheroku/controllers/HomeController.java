@@ -15,13 +15,13 @@ public class HomeController {
     @GetMapping("/")
     public Person home(HttpServletResponse response) {
         Cookie cookie = new Cookie("test", "carles");
-        cookie.setDomain("nettest.company.cat");
+        cookie.setDomain("company.cat");
         cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         return new Person("John", "Doe");
-    }    
+    }
 
     @PostMapping("/set-cookie")
     @CrossOrigin(origins = "https://testfront.company.cat", allowCredentials = "true")
