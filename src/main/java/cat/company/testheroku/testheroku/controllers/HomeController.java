@@ -15,7 +15,7 @@ public class HomeController {
     @GetMapping("/")
     public Person home(HttpServletResponse response) {
         Cookie cookie = new Cookie("test", "carles");
-        cookie.setDomain("company.cat");
+        cookie.setDomain("nettest.company.cat");
         cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
