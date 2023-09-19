@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.*;
 
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -53,10 +54,14 @@ public class HomeController {
 
     @GetMapping("/file")
     @ResponseBody
-    public ResponseEntity<InputStreamResource> getFile(HttpServletRequest request){
+    public ResponseEntity<InputStreamResource> getFile(HttpServletRequest request, HttpServletResponse response){
         if(!Arrays.stream(request.getCookies()).anyMatch(cookie->cookie.getName().equals("request")&&cookie.getValue().equals("secure")))
             throw new ForbiddenException();
         MediaType type=MediaType.IMAGE_PNG;
+        ContentDisposition contentDisposition=ContentDisposition.builder("inline")
+        .filename("out.png")
+        .build();
+        response.setHeader("Content-Disposition", contentDisposition.toString());
         InputStream in=getClass().getResourceAsStream("/images/test.png");
         return ResponseEntity.ok()
             .contentType(type)
