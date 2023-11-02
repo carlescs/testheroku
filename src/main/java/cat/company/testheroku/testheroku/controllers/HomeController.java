@@ -27,7 +27,7 @@ public class HomeController {
     }
 
     @PostMapping("/set-cookie")
-    @CrossOrigin(origins = {"https://testfront.company.cat","http://localhost:64860"}, allowCredentials = "true")
+    @CrossOrigin(originPatterns = {"https://*.company.cat","http://localhost:64860"}, allowCredentials = "true")
     public Cookie setFromFrontend(@RequestBody NewCookie newCookie, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(newCookie.getName(), newCookie.getValue());
         cookie.setDomain("company.cat");
@@ -41,7 +41,7 @@ public class HomeController {
     }
 
     @GetMapping("/set-cookie")
-    @CrossOrigin(origins = {"https://testfront.company.cat","http://localhost:64860"}, allowCredentials = "true")
+    @CrossOrigin(originPatterns = {"https://*.company.cat","http://localhost:64860"}, allowCredentials = "true")
     public Cookie setFromFrontendGet(@RequestParam String name, @RequestParam String value, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(name, value);
         cookie.setDomain("company.cat");
