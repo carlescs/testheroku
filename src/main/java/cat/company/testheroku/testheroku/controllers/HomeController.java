@@ -7,12 +7,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +30,20 @@ public class HomeController {
     @CrossOrigin(origins = {"https://testfront.company.cat","http://localhost:64860"}, allowCredentials = "true")
     public Cookie setFromFrontend(@RequestBody NewCookie newCookie, HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = new Cookie(newCookie.getName(), newCookie.getValue());
+        cookie.setDomain("company.cat");
+        cookie.setPath("/");
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        if(!request.getRemoteHost().endsWith("company.cat"))
+            cookie.setAttribute("SameSite", "None");
+        response.addCookie(cookie);
+        return cookie;
+    }
+
+    @GetMapping("/set-cookie")
+    @CrossOrigin(origins = {"https://testfront.company.cat","http://localhost:64860"}, allowCredentials = "true")
+    public Cookie setFromFrontendGet(@RequestParam String name, @RequestParam String value, HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie(name, value);
         cookie.setDomain("company.cat");
         cookie.setPath("/");
         cookie.setSecure(true);
